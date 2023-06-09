@@ -1,0 +1,64 @@
+{% extends 'todo/base.html' %}
+{% load static %}
+
+
+
+
+{% block content %}
+    <div class="container pt-5">
+        <div class="row p-0 mt-5">
+            <div class="col-lg-5 mx-auto shadow p-0">
+                <div class="alert alert-info text-center">
+                    <h2>Add TODO</h2>
+                </div>
+                <div class="p-4">
+                    <form action="{% url 'todo-home' %}" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <hr>
+                        <button class="btn btn-info">Add</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col">
+                <div class="border">
+                    {% if todos|length == 0 %}
+                        <div class="alert alert-info text-center mb-0">
+                            <h1>NO TODO</h1>
+                        </div>
+                    {% else %}
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Priority</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for todo in todos %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ todo.title }}</td>
+                                        <td>{{ todo.status }}</td>
+                                        <td>{{ todo.priority }}</td>
+                                        <td>
+                                            <a href="{% url 'remove-todo' todo.pk %}" title="Delete" class="me-3"><i class="bi bi-trash text-danger"></i></a>
+                                            {% if todo.status == "P" %}
+                                                <a href="{% url 'change-status' todo.pk 'C' %}"><i class="bi bi-stopwatch text-info"></i></a>
+                                            {% else %}
+                                                <a href="{% url 'change-status' todo.pk 'P' %}"><i class="bi bi-check2-circle text-success"></i></a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,30 @@
+{% extends 'todo/base.html' %}
+
+
+
+{% block title %}
+    Login
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row pt-5">
+        <div class="col-lg-5 mx-auto shadow p-0">
+            <div class="alert alert-info text-center">
+                <h2>Login Here</h2>
+            </div>
+            <div class="p-4">
+                <form action="{% url 'log-in' %}" method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <hr>
+                    <button class="btn btn-info">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

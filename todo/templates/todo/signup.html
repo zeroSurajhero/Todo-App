@@ -1,0 +1,23 @@
+{% extends 'todo/base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 mt-5 mx-auto shadow p-0">
+        <div class="alert alert-success h3 text-center">Create Account</div>
+        <div class="p-4">
+          <form action="{% url 'sign-up' %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
